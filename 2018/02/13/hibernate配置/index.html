@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>hibernate配置 | wangshu</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="java web基础之Hibernate配置">
+<meta name="keywords" content="hibernate,spring">
+<meta property="og:type" content="article">
+<meta property="og:title" content="hibernate配置">
+<meta property="og:url" content="http://yoursite.com/2018/02/13/hibernate配置/index.html">
+<meta property="og:site_name" content="wangshu">
+<meta property="og:description" content="java web基础之Hibernate配置">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-11-04T15:40:06.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="hibernate配置">
+<meta name="twitter:description" content="java web基础之Hibernate配置">
+  
+    <link rel="alternate" href="/atom.xml" title="wangshu" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">wangshu</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-hibernate配置" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/02/13/hibernate配置/" class="article-date">
+  <time datetime="2018-02-13T00:58:50.000Z" itemprop="datePublished">2018-02-13</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      hibernate配置
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>java web基础之Hibernate配置</p>
+<a id="more"></a>
+<h2 id="hibernate配置"><a href="#hibernate配置" class="headerlink" title="hibernate配置"></a>hibernate配置</h2><p>###在项目根目录新建hibernate.cfg.xml文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;!DOCTYPE hibernate-configuration PUBLIC</span><br><span class="line">	&quot;-//Hibernate/Hibernate Configuration DTD 3.0//EN&quot;</span><br><span class="line">	&quot;http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd&quot;&gt;</span><br><span class="line">	&lt;hibernate-configuration&gt;</span><br><span class="line">		&lt;session-factory&gt;</span><br><span class="line">			&lt;!-- 数据库url --&gt;</span><br><span class="line">			&lt;property name=&quot;hibernate.connection.url&quot;&gt;jdbc:mysql:///js&lt;/property&gt;</span><br><span class="line">			&lt;!-- 数据库用户名 --&gt;</span><br><span class="line">			&lt;property name=&quot;connection.username&quot;&gt;root&lt;/property&gt;</span><br><span class="line">			&lt;!-- 数据库密码 --&gt;</span><br><span class="line">			&lt;property name=&quot;connection.password&quot;&gt;123&lt;/property&gt;</span><br><span class="line">			&lt;!-- 数据库驱动 --&gt;</span><br><span class="line">			&lt;property name=&quot;connection.driver_class&quot;&gt;com.mysql.jdbc.Driver&lt;/property&gt;</span><br><span class="line">			&lt;!-- hibernate管理session的模式 --&gt;</span><br><span class="line">			&lt;property name=&quot;current_session_context_class&quot;&gt;thread&lt;/property&gt;</span><br><span class="line">			&lt;property name=&quot;hbm2ddl.auto&quot;&gt;update&lt;/property&gt;</span><br><span class="line">			&lt;!-- 方言 --&gt;</span><br><span class="line">			&lt;property name=&quot;dialect&quot;&gt;org.hibernate.dialect.MySQL5InnoDBDialect&lt;/property&gt;</span><br><span class="line">			&lt;mapping file=&quot;src/base/vo/emp.hbm.xml&quot;/&gt;</span><br><span class="line">		&lt;/session-factory&gt;</span><br><span class="line">	&lt;/hibernate-configuration&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="在bean下给实体类简历hbm映射文件"><a href="#在bean下给实体类简历hbm映射文件" class="headerlink" title="在bean下给实体类简历hbm映射文件"></a>在bean下给实体类简历hbm映射文件</h3><p>xxx.hbm.xml</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;!DOCTYPE hibernate-mapping PUBLIC </span><br><span class="line">    &quot;-//Hibernate/Hibernate Mapping DTD 3.0//EN&quot;</span><br><span class="line">    &quot;http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd&quot;&gt;</span><br><span class="line">    &lt;hibernate-mapping&gt;</span><br><span class="line">    	&lt;class name=&quot;base.vo.Emp&quot; table=&quot;emp&quot;&gt;</span><br><span class="line">    		&lt;id name=&quot;empId&quot; column=&quot;emp_id&quot;&gt;</span><br><span class="line">    			&lt;generator class=&quot;increment&quot;&gt;&lt;/generator&gt;</span><br><span class="line">    		&lt;/id&gt;</span><br><span class="line">    		&lt;property name=&quot;empName&quot; column=&quot;emp_name&quot;&gt;&lt;/property&gt;</span><br><span class="line">    		&lt;property name=&quot;sale&quot;&gt;&lt;/property&gt;</span><br><span class="line">    		&lt;property name=&quot;birthday&quot;&gt;&lt;/property&gt;</span><br><span class="line">    		&lt;property name=&quot;sex&quot;&gt;&lt;/property&gt;</span><br><span class="line">    	&lt;/class&gt;</span><br><span class="line">    &lt;/hibernate-mapping&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="建立测试类测试"><a href="#建立测试类测试" class="headerlink" title="建立测试类测试"></a>建立测试类测试</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">package base.vo;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">import java.util.List;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">import org.hibernate.Session;</span><br><span class="line">import org.hibernate.SessionFactory;</span><br><span class="line">import org.hibernate.Transaction;</span><br><span class="line">import org.hibernate.boot.registry.StandardServiceRegistry;</span><br><span class="line">import org.hibernate.boot.registry.StandardServiceRegistryBuilder;</span><br><span class="line">import org.hibernate.cfg.Configuration;</span><br><span class="line">import org.junit.Test;</span><br><span class="line"></span><br><span class="line">public class TestJS &#123;</span><br><span class="line"></span><br><span class="line">	@Test</span><br><span class="line">	public void test() &#123;</span><br><span class="line">		Configuration cfg=new Configuration().configure();</span><br><span class="line">		StandardServiceRegistry ssr=new StandardServiceRegistryBuilder()</span><br><span class="line">								.applySettings(cfg.getProperties()).build();</span><br><span class="line">		SessionFactory sf=cfg.buildSessionFactory(ssr);</span><br><span class="line">		Session session = sf.getCurrentSession();</span><br><span class="line">		Transaction tx = session.beginTransaction();</span><br><span class="line">		List&lt;Emp&gt; list = session.createQuery(&quot;from Emp&quot;).list();</span><br><span class="line">		tx.commit();</span><br><span class="line">		System.out.println(list);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/02/13/hibernate配置/" data-id="cjsb474ki001x30sh7469vh92" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hibernate/">hibernate</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/spring/">spring</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/02/21/Centos配置静态IP/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Centos配置静态IP
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/11/27/struts2文件上传配置/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">struts2文件上传配置</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Dubbo/">Dubbo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/REST/">REST</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RabbitMQ/">RabbitMQ</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringBoot/">SpringBoot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringCloud/">SpringCloud</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringData/">SpringData</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringMVC/">SpringMVC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringSecurity/">SpringSecurity</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/centos/">centos</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/eclipse/">eclipse</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hibernate/">hibernate</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/http/">http</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/idea/">idea</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jdk/">jdk</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/maven/">maven</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mySQL/">mySQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mybatis/">mybatis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/">nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/oauth/">oauth</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rabbitMQ/">rabbitMQ</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/">redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/security/">security</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/servlet/">servlet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/spring/">spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/springBoot/">springBoot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sql/">sql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/struts/">struts</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ubuntu/">ubuntu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/zookeeper/">zookeeper</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/上传文件/">上传文件</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分页/">分页</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/并发/">并发</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微服务/">微服务</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/拦截器/">拦截器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/支付/">支付</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库/">数据库</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/服务/">服务</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/框架整合/">框架整合</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/消息队列/">消息队列</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/负载均衡/">负载均衡</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/邮件/">邮件</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Dubbo/" style="font-size: 13.33px;">Dubbo</a> <a href="/tags/REST/" style="font-size: 10px;">REST</a> <a href="/tags/RabbitMQ/" style="font-size: 10px;">RabbitMQ</a> <a href="/tags/Spring/" style="font-size: 10px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 18.33px;">SpringBoot</a> <a href="/tags/SpringCloud/" style="font-size: 10px;">SpringCloud</a> <a href="/tags/SpringData/" style="font-size: 11.67px;">SpringData</a> <a href="/tags/SpringMVC/" style="font-size: 11.67px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 10px;">SpringSecurity</a> <a href="/tags/centos/" style="font-size: 11.67px;">centos</a> <a href="/tags/docker/" style="font-size: 15px;">docker</a> <a href="/tags/eclipse/" style="font-size: 10px;">eclipse</a> <a href="/tags/git/" style="font-size: 11.67px;">git</a> <a href="/tags/hibernate/" style="font-size: 11.67px;">hibernate</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/idea/" style="font-size: 10px;">idea</a> <a href="/tags/java/" style="font-size: 16.67px;">java</a> <a href="/tags/jdk/" style="font-size: 10px;">jdk</a> <a href="/tags/linux/" style="font-size: 20px;">linux</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/mySQL/" style="font-size: 10px;">mySQL</a> <a href="/tags/mybatis/" style="font-size: 13.33px;">mybatis</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/oauth/" style="font-size: 10px;">oauth</a> <a href="/tags/rabbitMQ/" style="font-size: 10px;">rabbitMQ</a> <a href="/tags/redis/" style="font-size: 10px;">redis</a> <a href="/tags/security/" style="font-size: 10px;">security</a> <a href="/tags/servlet/" style="font-size: 10px;">servlet</a> <a href="/tags/spring/" style="font-size: 11.67px;">spring</a> <a href="/tags/springBoot/" style="font-size: 10px;">springBoot</a> <a href="/tags/sql/" style="font-size: 10px;">sql</a> <a href="/tags/struts/" style="font-size: 11.67px;">struts</a> <a href="/tags/ubuntu/" style="font-size: 10px;">ubuntu</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/上传文件/" style="font-size: 10px;">上传文件</a> <a href="/tags/分页/" style="font-size: 10px;">分页</a> <a href="/tags/并发/" style="font-size: 10px;">并发</a> <a href="/tags/微服务/" style="font-size: 10px;">微服务</a> <a href="/tags/拦截器/" style="font-size: 11.67px;">拦截器</a> <a href="/tags/支付/" style="font-size: 10px;">支付</a> <a href="/tags/数据库/" style="font-size: 13.33px;">数据库</a> <a href="/tags/服务/" style="font-size: 10px;">服务</a> <a href="/tags/框架整合/" style="font-size: 10px;">框架整合</a> <a href="/tags/消息队列/" style="font-size: 10px;">消息队列</a> <a href="/tags/负载均衡/" style="font-size: 10px;">负载均衡</a> <a href="/tags/邮件/" style="font-size: 10px;">邮件</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/02/19/java日期格式化大小写问题/">java日期格式化大小写问题</a>
+          </li>
+        
+          <li>
+            <a href="/2019/02/18/HttpClientf发送Get-Post请求并接收响应数据/">HttpClientf发送Get/Post请求并接收响应数据</a>
+          </li>
+        
+          <li>
+            <a href="/2019/02/12/OAuth2认证流程/">OAuth2认证流程</a>
+          </li>
+        
+          <li>
+            <a href="/2019/01/30/探索SpringSecurity/">探索SpringSecurity</a>
+          </li>
+        
+          <li>
+            <a href="/2019/01/25/微服务之Consul/">微服务之Consul</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 wangshu<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+{% if footer.counter %}
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+    <span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    <span class="post-meta-divider">|</span>
+    <span id="busuanzi_container_site_uv">总访客<span id="busuanzi_value_site_uv"></span>人</span>
+    <span class="post-meta-divider">|</span>
+
+{% endif %}
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

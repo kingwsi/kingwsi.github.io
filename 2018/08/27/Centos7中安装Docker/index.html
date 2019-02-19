@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Centos7中安装Docker | wangshu</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="要在CentOS上开始使用Docker CE，请确保 满足先决条件，然后 安装Docker。">
+<meta name="keywords" content="centos,docker">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Centos7中安装Docker">
+<meta property="og:url" content="http://yoursite.com/2018/08/27/Centos7中安装Docker/index.html">
+<meta property="og:site_name" content="wangshu">
+<meta property="og:description" content="要在CentOS上开始使用Docker CE，请确保 满足先决条件，然后 安装Docker。">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-11-21T07:54:55.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Centos7中安装Docker">
+<meta name="twitter:description" content="要在CentOS上开始使用Docker CE，请确保 满足先决条件，然后 安装Docker。">
+  
+    <link rel="alternate" href="/atom.xml" title="wangshu" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">wangshu</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Centos7中安装Docker" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/08/27/Centos7中安装Docker/" class="article-date">
+  <time datetime="2018-08-27T06:41:21.000Z" itemprop="datePublished">2018-08-27</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Centos7中安装Docker
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>要在CentOS上开始使用Docker CE，请确保 <a href="https://docs.docker.com/install/linux/docker-ce/centos/#prerequisites" target="_blank" rel="noopener">满足先决条件</a>，然后 <a href="https://docs.docker.com/install/linux/docker-ce/centos/#install-docker-ce" target="_blank" rel="noopener">安装Docker</a>。<br><a id="more"></a></p>
+<h2 id="先决条件"><a href="#先决条件" class="headerlink" title="先决条件"></a>先决条件</h2><h3 id="Docker-EE客户"><a href="#Docker-EE客户" class="headerlink" title="Docker EE客户"></a>Docker EE客户</h3><p>要安装Docker Enterprise Edition（Docker EE），请转到 <a href="https://docs.docker.com/install/linux/docker-ee/centos/" target="_blank" rel="noopener">获取CentOS的Docker EE </a><strong>而不是本主题</strong>。</p>
+<p>要了解有关Docker EE的更多信息，请参阅 <a href="https://www.docker.com/enterprise-edition/" target="_blank" rel="noopener">Docker Enterprise Edition</a>。</p>
+<h3 id="OS要求"><a href="#OS要求" class="headerlink" title="OS要求"></a>OS要求</h3><p>要安装Docker CE，您需要CentOS 7的维护版本。不支持或测试存档版本。</p>
+<p>该<code>centos-extras</code>库必须启用。默认情况下，此存储库已启用，但如果已将其禁用，则需要 <a href="https://wiki.centos.org/AdditionalResources/Repositories" target="_blank" rel="noopener">重新启用它</a>。</p>
+<p><code>overlay2</code>建议使用存储驱动程序。</p>
+<h3 id="卸载旧版本"><a href="#卸载旧版本" class="headerlink" title="卸载旧版本"></a>卸载旧版本</h3><p>较旧版本的Docker被称为<code>docker</code>或<code>docker-engine</code>。如果已安装这些，请卸载它们以及相关的依赖项。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> sudo yum remove docker \</span><br><span class="line">                  docker-client \</span><br><span class="line">                  docker-client-latest \</span><br><span class="line">                  docker-common \</span><br><span class="line">                  docker-latest \</span><br><span class="line">                  docker-latest-logrotate \</span><br><span class="line">                  docker-logrotate \</span><br><span class="line">                  docker-selinux \</span><br><span class="line">                  docker-engine-selinux \</span><br><span class="line">                  docker-engine</span><br></pre></td></tr></table></figure>
+<p>如果<code>yum</code>报告没有安装这些软件包，则可以。</p>
+<p><code>/var/lib/docker/</code>保留包括图像，容器，卷和网络在内的内容。现在调用Docker CE包<code>docker-ce</code>。</p>
+<h2 id="安装Docker-CE"><a href="#安装Docker-CE" class="headerlink" title="安装Docker CE"></a>安装Docker CE</h2><p>您可以根据需要以不同方式安装Docker CE：</p>
+<ul>
+<li>大多数用户 <a href="https://docs.docker.com/install/linux/docker-ce/centos/#install-using-the-repository" target="_blank" rel="noopener">设置Docker的存储库</a>并从中进行安装，以便于安装和升级任务。这是推荐的方法。</li>
+<li>有些用户下载RPM软件包并 <a href="https://docs.docker.com/install/linux/docker-ce/centos/#install-from-a-package" target="_blank" rel="noopener">手动安装</a>并完全手动管理升级。这在诸如在没有访问互联网的气隙系统上安装Docker的情况下非常有用。</li>
+<li>在测试和开发环境中，一些用户选择使用自动 <a href="https://docs.docker.com/install/linux/docker-ce/centos/#install-using-the-convenience-script" target="_blank" rel="noopener">便捷脚本</a>来安装Docker。</li>
+</ul>
+<h3 id="使用存储库安装"><a href="#使用存储库安装" class="headerlink" title="使用存储库安装"></a>使用存储库安装</h3><p>在新主机上首次安装Docker CE之前，需要设置Docker存储库。之后，您可以从存储库安装和更新Docker。</p>
+<h4 id="设置存储库"><a href="#设置存储库" class="headerlink" title="设置存储库"></a>设置存储库</h4><ol>
+<li><p>安装所需的包。<code>yum-utils</code>提供了<code>yum-config-manager</code> 效用，并<code>device-mapper-persistent-data</code>和<code>lvm2</code>由需要 <code>devicemapper</code>存储驱动程序。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> sudo yum install -y yum-utils \</span><br><span class="line">  device-mapper-persistent-data \</span><br><span class="line">  lvm2</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用以下命令设置<strong>稳定</strong>存储库。即使您还想从<strong>边缘</strong>或<strong>测试</strong>存储库安装构建，您始终需要<strong>稳定的</strong>存储 库。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> sudo yum-config-manager \</span><br><span class="line">    --add-repo \</span><br><span class="line">    https://download.docker.com/linux/centos/docker-ce.repo</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>可选</strong>：启用<strong>边缘</strong>和<strong>测试</strong>存储库。这些存储库包含在<code>docker.repo</code>上面的文件中，但默认情况下处于禁用状态。您可以将它们与稳定存储库一起启用。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo yum-config-manager --enable docker-ce-edge</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo yum-config-manager --enable docker-ce-test</span><br></pre></td></tr></table></figure>
+<p>您可以通过运行带有标志的命令来禁用<strong>边缘</strong>或<strong>测试</strong>存储库 。要重新启用它，请使用该标志。以下命令禁用<strong>边缘</strong>存储库。<code>yum-config-manager`</code>–disable<code></code>–enable`</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo yum-config-manager --disable docker-ce-edge</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>注意</strong>：从Docker 17.06开始，稳定版本也会被推送到<strong>边缘</strong>并<strong>测试</strong>存储库。</p>
+</blockquote>
+<p><a href="https://docs.docker.com/install/" target="_blank" rel="noopener">了解<strong>稳定</strong>和<strong>边缘</strong>构建</a>。</p>
+</li>
+</ol>
+<h4 id="安装DOCKER-CE"><a href="#安装DOCKER-CE" class="headerlink" title="安装DOCKER CE"></a>安装DOCKER CE</h4><ol>
+<li><p>安装<em>最新版本</em>的Docker CE，或转到下一步安装特定版本：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> sudo yum install docker-ce</span><br></pre></td></tr></table></figure>
+<p>如果提示接受GPG密钥，请验证指纹是否匹配<code>060A 61C5 1B55 8A7F 742B 77AA C52F EB6B 621E 9F35</code>，如果匹配 ，则接受它。</p>
+<blockquote>
+<p>有多个Docker存储库？</p>
+<p>如果您启用了多个Docker存储库，则在未指定<code>yum install</code>或 <code>yum update</code>命令中的版本的情况下安装或更新始终会安装尽可能高的版本，这可能不适合您的稳定性需求。</p>
+</blockquote>
+<p>Docker已安装但尚未启动。该<code>docker</code>组已创建，但没有用户添加到该组。</p>
+</li>
+<li><p>要安装<em>特定版本</em>的Docker CE，请列出repo中的可用版本，然后选择并安装：</p>
+<p>一个。列出并对您的仓库中可用的版本进行排序。此示例按版本号对结果进行排序，从最高到最低，并被截断：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> yum list docker-ce --showduplicates | sort -r</span><br><span class="line"></span><br><span class="line">docker-ce.x86_64            18.03.0.ce-1.el7.centos             docker-ce-stable</span><br></pre></td></tr></table></figure>
+<p>返回的列表取决于启用的存储库，并且特定于您的CentOS版本（<code>.el7</code>在此示例中以后缀表示）。</p>
+<p>湾 通过其完全限定的包名称安装特定版本，包名称（<code>docker-ce</code>）加上版本字符串（第2列）直到第一个连字符，<code>-</code>例如，用连字符（） 分隔<code>docker-ce-18.03.0.ce</code>。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> sudo yum install docker-ce-&lt;VERSION STRING&gt;</span><br></pre></td></tr></table></figure>
+<p>Docker已安装但尚未启动。该<code>docker</code>组已创建，但没有用户添加到该组。</p>
+</li>
+<li><p>启动Docker。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> sudo systemctl start docker</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>docker</code>通过运行<code>hello-world</code> 映像验证是否已正确安装。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> sudo docker run hello-world</span><br></pre></td></tr></table></figure>
+<p>此命令下载测试映像并在容器中运行它。当容器运行时，它会打印一条信息性消息并退出。</p>
+</li>
+</ol>
+<p><a href="https://docs.docker.com/install/linux/docker-ce/centos/#install-docker-ce-1" target="_blank" rel="noopener">来源页面 Get Docker CE for CentOS | Docker Documentation</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/08/27/Centos7中安装Docker/" data-id="cjsb474hw000430sh4mxoim02" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/centos/">centos</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/docker/">docker</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/08/28/Docker基础命令/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Docker基础命令
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/07/21/SpringData分页查询和排序/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">SpringData分页查询和排序</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Dubbo/">Dubbo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/REST/">REST</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RabbitMQ/">RabbitMQ</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringBoot/">SpringBoot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringCloud/">SpringCloud</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringData/">SpringData</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringMVC/">SpringMVC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringSecurity/">SpringSecurity</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/centos/">centos</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/eclipse/">eclipse</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hibernate/">hibernate</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/http/">http</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/idea/">idea</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jdk/">jdk</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/maven/">maven</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mySQL/">mySQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mybatis/">mybatis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/">nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/oauth/">oauth</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rabbitMQ/">rabbitMQ</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/">redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/security/">security</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/servlet/">servlet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/spring/">spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/springBoot/">springBoot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sql/">sql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/struts/">struts</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ubuntu/">ubuntu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/zookeeper/">zookeeper</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/上传文件/">上传文件</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分页/">分页</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/并发/">并发</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微服务/">微服务</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/拦截器/">拦截器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/支付/">支付</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库/">数据库</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/服务/">服务</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/框架整合/">框架整合</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/消息队列/">消息队列</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/负载均衡/">负载均衡</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/邮件/">邮件</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Dubbo/" style="font-size: 13.33px;">Dubbo</a> <a href="/tags/REST/" style="font-size: 10px;">REST</a> <a href="/tags/RabbitMQ/" style="font-size: 10px;">RabbitMQ</a> <a href="/tags/Spring/" style="font-size: 10px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 18.33px;">SpringBoot</a> <a href="/tags/SpringCloud/" style="font-size: 10px;">SpringCloud</a> <a href="/tags/SpringData/" style="font-size: 11.67px;">SpringData</a> <a href="/tags/SpringMVC/" style="font-size: 11.67px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 10px;">SpringSecurity</a> <a href="/tags/centos/" style="font-size: 11.67px;">centos</a> <a href="/tags/docker/" style="font-size: 15px;">docker</a> <a href="/tags/eclipse/" style="font-size: 10px;">eclipse</a> <a href="/tags/git/" style="font-size: 11.67px;">git</a> <a href="/tags/hibernate/" style="font-size: 11.67px;">hibernate</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/idea/" style="font-size: 10px;">idea</a> <a href="/tags/java/" style="font-size: 16.67px;">java</a> <a href="/tags/jdk/" style="font-size: 10px;">jdk</a> <a href="/tags/linux/" style="font-size: 20px;">linux</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/mySQL/" style="font-size: 10px;">mySQL</a> <a href="/tags/mybatis/" style="font-size: 13.33px;">mybatis</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/oauth/" style="font-size: 10px;">oauth</a> <a href="/tags/rabbitMQ/" style="font-size: 10px;">rabbitMQ</a> <a href="/tags/redis/" style="font-size: 10px;">redis</a> <a href="/tags/security/" style="font-size: 10px;">security</a> <a href="/tags/servlet/" style="font-size: 10px;">servlet</a> <a href="/tags/spring/" style="font-size: 11.67px;">spring</a> <a href="/tags/springBoot/" style="font-size: 10px;">springBoot</a> <a href="/tags/sql/" style="font-size: 10px;">sql</a> <a href="/tags/struts/" style="font-size: 11.67px;">struts</a> <a href="/tags/ubuntu/" style="font-size: 10px;">ubuntu</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/上传文件/" style="font-size: 10px;">上传文件</a> <a href="/tags/分页/" style="font-size: 10px;">分页</a> <a href="/tags/并发/" style="font-size: 10px;">并发</a> <a href="/tags/微服务/" style="font-size: 10px;">微服务</a> <a href="/tags/拦截器/" style="font-size: 11.67px;">拦截器</a> <a href="/tags/支付/" style="font-size: 10px;">支付</a> <a href="/tags/数据库/" style="font-size: 13.33px;">数据库</a> <a href="/tags/服务/" style="font-size: 10px;">服务</a> <a href="/tags/框架整合/" style="font-size: 10px;">框架整合</a> <a href="/tags/消息队列/" style="font-size: 10px;">消息队列</a> <a href="/tags/负载均衡/" style="font-size: 10px;">负载均衡</a> <a href="/tags/邮件/" style="font-size: 10px;">邮件</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/02/19/java日期格式化大小写问题/">java日期格式化大小写问题</a>
+          </li>
+        
+          <li>
+            <a href="/2019/02/18/HttpClientf发送Get-Post请求并接收响应数据/">HttpClientf发送Get/Post请求并接收响应数据</a>
+          </li>
+        
+          <li>
+            <a href="/2019/02/12/OAuth2认证流程/">OAuth2认证流程</a>
+          </li>
+        
+          <li>
+            <a href="/2019/01/30/探索SpringSecurity/">探索SpringSecurity</a>
+          </li>
+        
+          <li>
+            <a href="/2019/01/25/微服务之Consul/">微服务之Consul</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 wangshu<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+{% if footer.counter %}
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+    <span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    <span class="post-meta-divider">|</span>
+    <span id="busuanzi_container_site_uv">总访客<span id="busuanzi_value_site_uv"></span>人</span>
+    <span class="post-meta-divider">|</span>
+
+{% endif %}
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

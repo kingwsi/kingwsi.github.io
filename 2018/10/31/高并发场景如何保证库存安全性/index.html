@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>高并发场景如何保证库存安全性 | wangshu</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="下单涉及的一些步骤,重复下单问题">
+<meta name="keywords" content="并发,redis">
+<meta property="og:type" content="article">
+<meta property="og:title" content="高并发场景如何保证库存安全性">
+<meta property="og:url" content="http://yoursite.com/2018/10/31/高并发场景如何保证库存安全性/index.html">
+<meta property="og:site_name" content="wangshu">
+<meta property="og:description" content="下单涉及的一些步骤,重复下单问题">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-11-14T01:33:58.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="高并发场景如何保证库存安全性">
+<meta name="twitter:description" content="下单涉及的一些步骤,重复下单问题">
+  
+    <link rel="alternate" href="/atom.xml" title="wangshu" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">wangshu</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-高并发场景如何保证库存安全性" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/10/31/高并发场景如何保证库存安全性/" class="article-date">
+  <time datetime="2018-10-31T01:29:34.000Z" itemprop="datePublished">2018-10-31</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      高并发场景如何保证库存安全性
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>下单涉及的一些步骤,重复下单问题<br><a id="more"></a></p>
+<h5 id="问题"><a href="#问题" class="headerlink" title="问题:"></a>问题:</h5><p>一件商品只有100个库存,现在有1000或者更多的用户来购买,每个用户计<br>划同时购买1个到几个不等商品。如何保证库存在高并发的场景下是安全的。<br>1.不多发<br>2.不少发</p>
+<h5 id="下单涉及的一些步骤"><a href="#下单涉及的一些步骤" class="headerlink" title="下单涉及的一些步骤"></a>下单涉及的一些步骤</h5><p>1.下单<br>2.下单同时预占库存<br>3.支付<br>4.支付成功真正减扣库存<br>5.取消订单<br>6.回退预占库存</p>
+<h5 id="重复下单问题"><a href="#重复下单问题" class="headerlink" title="重复下单问题"></a>重复下单问题</h5><p>i. 用户点击过快,重复提交两次。<br>ii. 网络延时,用户刷新或者点击下单重复提交。<br>iii. 网络框架重复请求,某些网络框架,在延时比较高的情况下会自动<br>重复请求。<br>iv. 用户恶意行为。</p>
+<p>解决办法：可使用Token解决，配合Redis做一个校验</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 方法 4</span></span><br><span class="line"><span class="comment"> * 商品的数量 等其他信息 先保存 到 Redis</span></span><br><span class="line"><span class="comment"> * 检查库存 与 减少库存 不是原子性,以 increment &gt; 0 为准</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> req</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">placeOrder3</span><span class="params">(PlaceOrderReq req)</span> </span>&#123;</span><br><span class="line">    String key = <span class="string">"product:"</span> + req.getProductId();</span><br><span class="line">    <span class="comment">// 先检查 库存是否充足</span></span><br><span class="line">    Integer num = (Integer) redisService.get(key);</span><br><span class="line">    <span class="keyword">if</span> (num &lt; req.getNum()) &#123;</span><br><span class="line">    	logger.info(<span class="string">"库存不足 1"</span>);</span><br><span class="line">	&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">	<span class="comment">//不可在这里下单减库存,否则导致数据不安全, 情况类似 方法1;</span></span><br><span class="line">	&#125;</span><br><span class="line">    <span class="comment">//减少库存</span></span><br><span class="line">    Long value = redisService.increment(key, -</span><br><span class="line">    req.getNum().longValue());</span><br><span class="line">    <span class="comment">//库存充足</span></span><br><span class="line">    <span class="keyword">if</span> (value &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">        logger.info(<span class="string">"成功抢购 ! "</span>);</span><br><span class="line">        <span class="comment">//TODO 真正减 扣 库存 等操作 下单等操作 MQ 或 其他方式,这些操作可用通过</span></span><br><span class="line">        place2(req);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">//库存不足,需要增加刚刚减去的库存</span></span><br><span class="line">        redisService.increment(key, req.getNum().longValue());</span><br><span class="line">        logger.info(<span class="string">"库存不足 2 "</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="分析"><a href="#分析" class="headerlink" title="分析:"></a>分析:</h5><p>利用<code>Redis increment</code> 的原子操作,保证库存安全。 事先需要把库存的数量等其他信<br>息保存到Redis,并保证更新库存的时候,更新Redis。<br>进来的时候 先 get 库存数量是否充足,再执行 increment。以  <code>increment &gt; 0</code>  为准。<br>检查库存 与 减少库存 不是原子性的。<br>检查库存的时候技术库存充足也不可下单;否则造成库存不安全,原来类似 方法1.<br>increment 是个原子操作,已这个为准。<code>redisService.increment(key, -req.getNum().longValue()) &gt;= 0</code> 说明库存充足,可<br>以下单。<br>redisService.increment(key, -req.getNum().longValue()) &lt; 0 的时候 不能下单,次<br>数库存不足。并且需要 回加刚刚减去的库存数量,否则会导致刚才减扣的数量 一直买<br>不出去。数据库与缓存的库存不一致。<br>次方法可以满足 高并抢购等一些方案,真正减扣库存和下单可以异步执行。<br>订单时效问题,订单取消等<br>为保证商家利益,同时把商品卖给有需要的人,订单下单成功后,往往会有<br>个有效时间。超过这个时间,订单取消,库存回滚。<br>为每笔订单设置 有效时间 可用参考这个:<br><a href="http://jblog.top/article/details/254951" target="_blank" rel="noopener">http://jblog.top/article/details/254951</a><br>订单取消后,可利用MQ 回退库存等。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/10/31/高并发场景如何保证库存安全性/" data-id="cjsb474l5002j30sh8mmgi1u0" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/redis/">redis</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/并发/">并发</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/11/02/Spring工厂方法/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Spring工厂方法
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/10/30/Maven中配置详解/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Maven中配置详解</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Dubbo/">Dubbo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/REST/">REST</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RabbitMQ/">RabbitMQ</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringBoot/">SpringBoot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringCloud/">SpringCloud</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringData/">SpringData</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringMVC/">SpringMVC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringSecurity/">SpringSecurity</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/centos/">centos</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/eclipse/">eclipse</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hibernate/">hibernate</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/http/">http</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/idea/">idea</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jdk/">jdk</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/maven/">maven</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mySQL/">mySQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mybatis/">mybatis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/">nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/oauth/">oauth</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rabbitMQ/">rabbitMQ</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/">redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/security/">security</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/servlet/">servlet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/spring/">spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/springBoot/">springBoot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sql/">sql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/struts/">struts</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ubuntu/">ubuntu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/zookeeper/">zookeeper</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/上传文件/">上传文件</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分页/">分页</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/并发/">并发</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微服务/">微服务</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/拦截器/">拦截器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/支付/">支付</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库/">数据库</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/服务/">服务</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/框架整合/">框架整合</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/消息队列/">消息队列</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/负载均衡/">负载均衡</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/邮件/">邮件</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Dubbo/" style="font-size: 13.33px;">Dubbo</a> <a href="/tags/REST/" style="font-size: 10px;">REST</a> <a href="/tags/RabbitMQ/" style="font-size: 10px;">RabbitMQ</a> <a href="/tags/Spring/" style="font-size: 10px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 18.33px;">SpringBoot</a> <a href="/tags/SpringCloud/" style="font-size: 10px;">SpringCloud</a> <a href="/tags/SpringData/" style="font-size: 11.67px;">SpringData</a> <a href="/tags/SpringMVC/" style="font-size: 11.67px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 10px;">SpringSecurity</a> <a href="/tags/centos/" style="font-size: 11.67px;">centos</a> <a href="/tags/docker/" style="font-size: 15px;">docker</a> <a href="/tags/eclipse/" style="font-size: 10px;">eclipse</a> <a href="/tags/git/" style="font-size: 11.67px;">git</a> <a href="/tags/hibernate/" style="font-size: 11.67px;">hibernate</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/idea/" style="font-size: 10px;">idea</a> <a href="/tags/java/" style="font-size: 16.67px;">java</a> <a href="/tags/jdk/" style="font-size: 10px;">jdk</a> <a href="/tags/linux/" style="font-size: 20px;">linux</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/mySQL/" style="font-size: 10px;">mySQL</a> <a href="/tags/mybatis/" style="font-size: 13.33px;">mybatis</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/oauth/" style="font-size: 10px;">oauth</a> <a href="/tags/rabbitMQ/" style="font-size: 10px;">rabbitMQ</a> <a href="/tags/redis/" style="font-size: 10px;">redis</a> <a href="/tags/security/" style="font-size: 10px;">security</a> <a href="/tags/servlet/" style="font-size: 10px;">servlet</a> <a href="/tags/spring/" style="font-size: 11.67px;">spring</a> <a href="/tags/springBoot/" style="font-size: 10px;">springBoot</a> <a href="/tags/sql/" style="font-size: 10px;">sql</a> <a href="/tags/struts/" style="font-size: 11.67px;">struts</a> <a href="/tags/ubuntu/" style="font-size: 10px;">ubuntu</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/上传文件/" style="font-size: 10px;">上传文件</a> <a href="/tags/分页/" style="font-size: 10px;">分页</a> <a href="/tags/并发/" style="font-size: 10px;">并发</a> <a href="/tags/微服务/" style="font-size: 10px;">微服务</a> <a href="/tags/拦截器/" style="font-size: 11.67px;">拦截器</a> <a href="/tags/支付/" style="font-size: 10px;">支付</a> <a href="/tags/数据库/" style="font-size: 13.33px;">数据库</a> <a href="/tags/服务/" style="font-size: 10px;">服务</a> <a href="/tags/框架整合/" style="font-size: 10px;">框架整合</a> <a href="/tags/消息队列/" style="font-size: 10px;">消息队列</a> <a href="/tags/负载均衡/" style="font-size: 10px;">负载均衡</a> <a href="/tags/邮件/" style="font-size: 10px;">邮件</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/02/19/java日期格式化大小写问题/">java日期格式化大小写问题</a>
+          </li>
+        
+          <li>
+            <a href="/2019/02/18/HttpClientf发送Get-Post请求并接收响应数据/">HttpClientf发送Get/Post请求并接收响应数据</a>
+          </li>
+        
+          <li>
+            <a href="/2019/02/12/OAuth2认证流程/">OAuth2认证流程</a>
+          </li>
+        
+          <li>
+            <a href="/2019/01/30/探索SpringSecurity/">探索SpringSecurity</a>
+          </li>
+        
+          <li>
+            <a href="/2019/01/25/微服务之Consul/">微服务之Consul</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 wangshu<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+{% if footer.counter %}
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+    <span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    <span class="post-meta-divider">|</span>
+    <span id="busuanzi_container_site_uv">总访客<span id="busuanzi_value_site_uv"></span>人</span>
+    <span class="post-meta-divider">|</span>
+
+{% endif %}
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

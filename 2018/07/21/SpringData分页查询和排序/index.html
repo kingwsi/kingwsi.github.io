@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>SpringData分页查询和排序 | wangshu</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="SpringData进阶">
+<meta name="keywords" content="SpringData,分页">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SpringData分页查询和排序">
+<meta property="og:url" content="http://yoursite.com/2018/07/21/SpringData分页查询和排序/index.html">
+<meta property="og:site_name" content="wangshu">
+<meta property="og:description" content="SpringData进阶">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-12-03T04:33:19.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="SpringData分页查询和排序">
+<meta name="twitter:description" content="SpringData进阶">
+  
+    <link rel="alternate" href="/atom.xml" title="wangshu" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">wangshu</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-SpringData分页查询和排序" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/07/21/SpringData分页查询和排序/" class="article-date">
+  <time datetime="2018-07-21T02:06:36.000Z" itemprop="datePublished">2018-07-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      SpringData分页查询和排序
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>SpringData进阶</p>
+<a id="more"></a>
+<h3 id="SpringData分页查询"><a href="#SpringData分页查询" class="headerlink" title="SpringData分页查询"></a>SpringData分页查询</h3><h6 id="1-实体类Repository继承PagingAndSortingRepository-lt-T-ID-extends-Serializable-gt-接口"><a href="#1-实体类Repository继承PagingAndSortingRepository-lt-T-ID-extends-Serializable-gt-接口" class="headerlink" title="1)实体类Repository继承PagingAndSortingRepository&lt;T, ID extends Serializable&gt;接口"></a>1)实体类Repository继承PagingAndSortingRepository&lt;T, ID extends Serializable&gt;接口</h6><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">UserRepository</span> <span class="keyword">extends</span> <span class="title">PagingAndSortingRepository</span>&lt;<span class="title">User</span>, <span class="title">Integer</span>&gt; </span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h6 id="2-使用接口的-findAll-Pageable-pageable-方法"><a href="#2-使用接口的-findAll-Pageable-pageable-方法" class="headerlink" title="2)使用接口的 findAll(Pageable pageable)方法"></a>2)使用接口的 findAll(Pageable pageable)方法</h6><p><em>创建Pageable的实现类PageRequest对象，该对象包含了查询页码和分页大小</em></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Sort.Order order1 = <span class="keyword">new</span> Sort.Order(Sort.Direction.ASC,<span class="string">"id"</span>);</span><br><span class="line">Sort sort = <span class="keyword">new</span> Sort(order1);</span><br><span class="line">PageRequest pageable = <span class="keyword">new</span> PageRequest(<span class="number">0</span>, <span class="number">5</span>, sort);</span><br><span class="line">userRepository.findAll(pageable);</span><br><span class="line">System.out.println(<span class="string">"当前页:"</span> + (repositoryAll.getNumber() + <span class="number">1</span>));</span><br><span class="line">System.out.println(<span class="string">"总页数"</span>+repositoryAll.getTotalPages());</span><br><span class="line">System.out.println(<span class="string">"总条数"</span>+repositoryAll.getTotalElements());</span><br><span class="line">System.out.println(<span class="string">"当前页面list"</span>+repositoryAll.getContent());</span><br><span class="line">System.out.println(<span class="string">"分页大小"</span>+repositoryAll.getSize());</span><br></pre></td></tr></table></figure>
+<h3 id="SpringData带条件的分页查询"><a href="#SpringData带条件的分页查询" class="headerlink" title="SpringData带条件的分页查询"></a>SpringData带条件的分页查询</h3><h6 id="1-继承JpaSpecificationExecutor接口"><a href="#1-继承JpaSpecificationExecutor接口" class="headerlink" title="1)继承JpaSpecificationExecutor接口"></a>1)继承JpaSpecificationExecutor<t>接口</t></h6><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">UserRepository</span> <span class="keyword">extends</span> <span class="title">JpaSpecificationExecutor</span>&lt;<span class="title">User</span>&gt;()</span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h6 id="2-使用Specification匿名内部类"><a href="#2-使用Specification匿名内部类" class="headerlink" title="2)使用Specification匿名内部类"></a>2)使用Specification匿名内部类</h6><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">PageRequest pageable = <span class="keyword">new</span> PageRequest(<span class="number">0</span>, <span class="number">5</span>);</span><br><span class="line">Specification&lt;User&gt; specification = <span class="keyword">new</span> Specification&lt;User&gt;() &#123;</span><br><span class="line">            <span class="comment">/**</span></span><br><span class="line"><span class="comment">             *</span></span><br><span class="line"><span class="comment">             * <span class="doctag">@param</span> root              代表查询的实体类</span></span><br><span class="line"><span class="comment">             * <span class="doctag">@param</span> criteriaQuery     可以从中获取Root对象，还可以添加查询条件</span></span><br><span class="line"><span class="comment">             * <span class="doctag">@param</span> criteriaBuilder   用于创建Criteria相关对象的个工厂</span></span><br><span class="line"><span class="comment">             * <span class="doctag">@return</span> Predicate        代表一个查询条件</span></span><br><span class="line"><span class="comment">             */</span></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> Predicate <span class="title">toPredicate</span><span class="params">(Root&lt;User&gt; root, CriteriaQuery&lt;?&gt; criteriaQuery, CriteriaBuilder criteriaBuilder)</span> </span>&#123;</span><br><span class="line">                </span><br><span class="line">                <span class="comment">//获取path</span></span><br><span class="line">                Path id = root.get(<span class="string">"id"</span>);</span><br><span class="line">                <span class="comment">//查询id&gt;5</span></span><br><span class="line">                Predicate predicate = criteriaBuilder.like(id, <span class="string">"5"</span>);</span><br><span class="line">                <span class="keyword">return</span> predicate;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">Page&lt;User&gt; page = userRepository.findAll(specification, pageable);</span><br></pre></td></tr></table></figure>
+<h3 id="SpringData按字段排序查询"><a href="#SpringData按字段排序查询" class="headerlink" title="SpringData按字段排序查询"></a>SpringData按字段排序查询</h3><p><em>创建Pageable的实现类PageRequest对象，该对象包含了排序依据</em>，只需传入Sort对象即可*</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Sort.Order order1 = <span class="keyword">new</span> Sort.Order(Sort.Direction.ASC,<span class="string">"id"</span>);</span><br><span class="line">Sort sort = <span class="keyword">new</span> Sort(order1);</span><br><span class="line">PageRequest pageable = <span class="keyword">new</span> PageRequest(<span class="number">0</span>, <span class="number">5</span>, sort);</span><br><span class="line">userRepository.findAll(pageable);</span><br><span class="line">System.out.println(<span class="string">"当前页:"</span> + (repositoryAll.getNumber() + <span class="number">1</span>));</span><br><span class="line">System.out.println(<span class="string">"总页数"</span>+repositoryAll.getTotalPages());</span><br><span class="line">System.out.println(<span class="string">"总条数"</span>+repositoryAll.getTotalElements());</span><br><span class="line">System.out.println(<span class="string">"当前页面list"</span>+repositoryAll.getContent());</span><br><span class="line">System.out.println(<span class="string">"分页大小"</span>+repositoryAll.getSize());</span><br></pre></td></tr></table></figure>
+<p>查看控制台打印的SQL语句</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Hibernate: </span><br><span class="line">    <span class="keyword">select</span></span><br><span class="line">        user0_.id <span class="keyword">as</span> id1_0_,</span><br><span class="line">        user0_.name <span class="keyword">as</span> name2_0_,</span><br><span class="line">        user0_.phone_num <span class="keyword">as</span> phone_nu3_0_ </span><br><span class="line">    <span class="keyword">from</span></span><br><span class="line">        tbl_user user0_ </span><br><span class="line">    <span class="keyword">order</span> <span class="keyword">by</span></span><br><span class="line">        user0_.id <span class="keyword">asc</span> <span class="keyword">limit</span> ?,</span><br><span class="line">        ?</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/07/21/SpringData分页查询和排序/" data-id="cjsb474k6001o30shla7afxq1" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpringData/">SpringData</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/分页/">分页</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/08/27/Centos7中安装Docker/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Centos7中安装Docker
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/07/20/SpringBoot中体验SpringData/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">SpringBoot中体验SpringData</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Dubbo/">Dubbo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/REST/">REST</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RabbitMQ/">RabbitMQ</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringBoot/">SpringBoot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringCloud/">SpringCloud</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringData/">SpringData</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringMVC/">SpringMVC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringSecurity/">SpringSecurity</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/centos/">centos</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/eclipse/">eclipse</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hibernate/">hibernate</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/http/">http</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/idea/">idea</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jdk/">jdk</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/maven/">maven</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mySQL/">mySQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mybatis/">mybatis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/">nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/oauth/">oauth</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rabbitMQ/">rabbitMQ</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/">redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/security/">security</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/servlet/">servlet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/spring/">spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/springBoot/">springBoot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sql/">sql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/struts/">struts</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ubuntu/">ubuntu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/zookeeper/">zookeeper</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/上传文件/">上传文件</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分页/">分页</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/并发/">并发</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微服务/">微服务</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/拦截器/">拦截器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/支付/">支付</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库/">数据库</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/服务/">服务</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/框架整合/">框架整合</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/消息队列/">消息队列</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/负载均衡/">负载均衡</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/邮件/">邮件</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Dubbo/" style="font-size: 13.33px;">Dubbo</a> <a href="/tags/REST/" style="font-size: 10px;">REST</a> <a href="/tags/RabbitMQ/" style="font-size: 10px;">RabbitMQ</a> <a href="/tags/Spring/" style="font-size: 10px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 18.33px;">SpringBoot</a> <a href="/tags/SpringCloud/" style="font-size: 10px;">SpringCloud</a> <a href="/tags/SpringData/" style="font-size: 11.67px;">SpringData</a> <a href="/tags/SpringMVC/" style="font-size: 11.67px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 10px;">SpringSecurity</a> <a href="/tags/centos/" style="font-size: 11.67px;">centos</a> <a href="/tags/docker/" style="font-size: 15px;">docker</a> <a href="/tags/eclipse/" style="font-size: 10px;">eclipse</a> <a href="/tags/git/" style="font-size: 11.67px;">git</a> <a href="/tags/hibernate/" style="font-size: 11.67px;">hibernate</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/idea/" style="font-size: 10px;">idea</a> <a href="/tags/java/" style="font-size: 16.67px;">java</a> <a href="/tags/jdk/" style="font-size: 10px;">jdk</a> <a href="/tags/linux/" style="font-size: 20px;">linux</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/mySQL/" style="font-size: 10px;">mySQL</a> <a href="/tags/mybatis/" style="font-size: 13.33px;">mybatis</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/oauth/" style="font-size: 10px;">oauth</a> <a href="/tags/rabbitMQ/" style="font-size: 10px;">rabbitMQ</a> <a href="/tags/redis/" style="font-size: 10px;">redis</a> <a href="/tags/security/" style="font-size: 10px;">security</a> <a href="/tags/servlet/" style="font-size: 10px;">servlet</a> <a href="/tags/spring/" style="font-size: 11.67px;">spring</a> <a href="/tags/springBoot/" style="font-size: 10px;">springBoot</a> <a href="/tags/sql/" style="font-size: 10px;">sql</a> <a href="/tags/struts/" style="font-size: 11.67px;">struts</a> <a href="/tags/ubuntu/" style="font-size: 10px;">ubuntu</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/上传文件/" style="font-size: 10px;">上传文件</a> <a href="/tags/分页/" style="font-size: 10px;">分页</a> <a href="/tags/并发/" style="font-size: 10px;">并发</a> <a href="/tags/微服务/" style="font-size: 10px;">微服务</a> <a href="/tags/拦截器/" style="font-size: 11.67px;">拦截器</a> <a href="/tags/支付/" style="font-size: 10px;">支付</a> <a href="/tags/数据库/" style="font-size: 13.33px;">数据库</a> <a href="/tags/服务/" style="font-size: 10px;">服务</a> <a href="/tags/框架整合/" style="font-size: 10px;">框架整合</a> <a href="/tags/消息队列/" style="font-size: 10px;">消息队列</a> <a href="/tags/负载均衡/" style="font-size: 10px;">负载均衡</a> <a href="/tags/邮件/" style="font-size: 10px;">邮件</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/02/19/java日期格式化大小写问题/">java日期格式化大小写问题</a>
+          </li>
+        
+          <li>
+            <a href="/2019/02/18/HttpClientf发送Get-Post请求并接收响应数据/">HttpClientf发送Get/Post请求并接收响应数据</a>
+          </li>
+        
+          <li>
+            <a href="/2019/02/12/OAuth2认证流程/">OAuth2认证流程</a>
+          </li>
+        
+          <li>
+            <a href="/2019/01/30/探索SpringSecurity/">探索SpringSecurity</a>
+          </li>
+        
+          <li>
+            <a href="/2019/01/25/微服务之Consul/">微服务之Consul</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 wangshu<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+{% if footer.counter %}
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+    <span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    <span class="post-meta-divider">|</span>
+    <span id="busuanzi_container_site_uv">总访客<span id="busuanzi_value_site_uv"></span>人</span>
+    <span class="post-meta-divider">|</span>
+
+{% endif %}
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

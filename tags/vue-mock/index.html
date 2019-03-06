@@ -5,20 +5,16 @@
   
 
   
-  <title>Linux下安装RabbitMQ消息队列 | wangshu</title>
+  <title>Tag: -vue -mock | wangshu</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="基于Centos 7安装RabbitMQ消息队列服务器">
-<meta name="keywords" content="linux,rabbitMQ,消息队列">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Linux下安装RabbitMQ消息队列">
-<meta property="og:url" content="http://yoursite.com/2018/10/27/Linux下安装RabbitMQ消息队列/index.html">
+  <meta name="keywords" content="java">
+<meta property="og:type" content="website">
+<meta property="og:title" content="wangshu">
+<meta property="og:url" content="http://yoursite.com/tags/vue-mock/index.html">
 <meta property="og:site_name" content="wangshu">
-<meta property="og:description" content="基于Centos 7安装RabbitMQ消息队列服务器">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-11-21T07:58:15.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Linux下安装RabbitMQ消息队列">
-<meta name="twitter:description" content="基于Centos 7安装RabbitMQ消息队列服务器">
+<meta name="twitter:title" content="wangshu">
   
     <link rel="alternate" href="/atom.xml" title="wangshu" type="application/atom+xml">
   
@@ -65,88 +61,40 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-Linux下安装RabbitMQ消息队列" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/10/27/Linux下安装RabbitMQ消息队列/" class="article-date">
-  <time datetime="2018-10-27T03:07:23.000Z" itemprop="datePublished">2018-10-27</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
+        <section id="main">
   
-    <h1 class="article-title" itemprop="name">
-      Linux下安装RabbitMQ消息队列
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2019" class="archive-year">2019</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      <a href="/2019/03/06/前后端分离开发-Vue中使用Mock模拟数据/" class="archive-article-date">
+  <time datetime="2019-03-06T02:09:07.000Z" itemprop="datePublished">Mar 6</time>
+</a>
+      
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2019/03/06/前后端分离开发-Vue中使用Mock模拟数据/">前后端分离开发-Vue中使用Mock模拟数据</a>
     </h1>
   
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>基于Centos 7安装RabbitMQ消息队列服务器</p>
-<a id="more"></a>
-<h3 id="一、安装Erlang"><a href="#一、安装Erlang" class="headerlink" title="一、安装Erlang"></a>一、安装<a href="https://www.erlang-solutions.com/resources/download.html" target="_blank" rel="noopener">Erlang</a></h3><h5 id="1、下载esl-erlang-21-0-1-centos-7-amd64-rpm"><a href="#1、下载esl-erlang-21-0-1-centos-7-amd64-rpm" class="headerlink" title="1、下载esl-erlang_21.0-1~centos~7_amd64.rpm"></a>1、下载esl-erlang_21.0-1~centos~7_amd64.rpm</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://packages.erlang-solutions.com/erlang/esl-erlang/FLAVOUR_1_general/esl-erlang_21.0-1~centos~7_amd64.rpm</span><br></pre></td></tr></table></figure>
-<h5 id="2、安装"><a href="#2、安装" class="headerlink" title="2、安装"></a>2、安装</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpm -ivh esl-erlang_21.0-1~centos~7_amd64.rpm --force --nodeps</span><br></pre></td></tr></table></figure>
-<h5 id="3、查看安装"><a href="#3、查看安装" class="headerlink" title="3、查看安装"></a>3、查看安装</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost opt]# yum list|grep erlang</span><br><span class="line">esl-erlang.x86_64                           21.0-1                     installed</span><br></pre></td></tr></table></figure>
-<h3 id="二、安装RabbitMQ"><a href="#二、安装RabbitMQ" class="headerlink" title="二、安装RabbitMQ"></a>二、安装RabbitMQ</h3><h5 id="1、下载rabbitmq-server-3-7-7-1"><a href="#1、下载rabbitmq-server-3-7-7-1" class="headerlink" title="1、下载rabbitmq-server-3.7.7-1"></a>1、下载rabbitmq-server-3.7.7-1</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://dl.bintray.com/rabbitmq/all/rabbitmq-server/3.7.7/rabbitmq-server-3.7.7-1.el7.noarch.rpm</span><br></pre></td></tr></table></figure>
-<h5 id="2、安装-1"><a href="#2、安装-1" class="headerlink" title="2、安装"></a>2、安装</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpm -ivh rabbitmq-server-3.7.7-1.el7.noarch.rpm --force --nodeps</span><br></pre></td></tr></table></figure>
-<p>#####3、查看安装</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost opt]# yum list|grep rabbit</span><br><span class="line">rabbitmq-server.noarch                      3.7.7-1.el7                installed</span><br><span class="line">librabbitmq.i686                            0.8.0-2.el7                base</span><br><span class="line">librabbitmq.x86_64                          0.8.0-2.el7                base</span><br><span class="line">librabbitmq-devel.i686                      0.8.0-2.el7                base</span><br><span class="line">librabbitmq-devel.x86_64                    0.8.0-2.el7                base</span><br><span class="line">librabbitmq-examples.x86_64                 0.8.0-2.el7                base                            21.0-1                     installed</span><br></pre></td></tr></table></figure>
-<p>###3、配置远程用户访问</p>
-<p>#####1、新建配置文件</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/rabbitmq/rabbitmq.conf</span><br><span class="line"><span class="meta">#</span>默认用户名</span><br><span class="line">default_user = guest</span><br><span class="line"><span class="meta">#</span>默认密码</span><br><span class="line">default_pass = guest</span><br><span class="line"><span class="meta">#</span>远程用户访问</span><br><span class="line">loopback_users = none</span><br></pre></td></tr></table></figure>
-<p>#####2、启动rabbitmq服务</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/sbin/service rabbitmq-server start</span><br></pre></td></tr></table></figure>
-<p>#####3、查看运行</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost opt]# /sbin/service rabbitmq-server status</span><br><span class="line">Redirecting to /bin/systemctl status rabbitmq-server.service</span><br><span class="line">● rabbitmq-server.service - RabbitMQ broker</span><br><span class="line">   Loaded: loaded (/usr/lib/systemd/system/rabbitmq-server.service; enabled; vendor preset: disabled)</span><br><span class="line">   Active: activating (start) since Fri 2018-07-06 01:06:31 EDT; 1min 15s ago</span><br><span class="line"> Main PID: 2948 (beam.smp)</span><br><span class="line">   CGroup: /system.slice/rabbitmq-server.service</span><br><span class="line">           ├─2948 /usr/lib/erlang/erts-10.0/bin/beam.smp -W w -A 64 -MBas ageffcbf -MHas ageffcbf -MBlmbcs 512 -MHlmbcs...</span><br><span class="line">           ├─3121 /usr/lib/erlang/erts-10.0/bin/epmd -daemon</span><br><span class="line">           ├─3259 erl_child_setup 1024</span><br><span class="line">           ├─3296 inet_gethost 4</span><br><span class="line">           └─3297 inet_gethost 4</span><br><span class="line"></span><br><span class="line">Jul 06 01:06:36 localhost.localdomain rabbitmq-server[2948]: ##  ##      RabbitMQ 3.7.7. Copyright (C) 2007-2018 Pi...Inc.</span><br><span class="line">Jul 06 01:06:36 localhost.localdomain rabbitmq-server[2948]: ##########  Licensed under the MPL.  See http://www.ra...com/</span><br><span class="line">Jul 06 01:06:36 localhost.localdomain rabbitmq-server[2948]: ######  ##</span><br><span class="line">Jul 06 01:06:36 localhost.localdomain rabbitmq-server[2948]: ##########  Logs: /var/log/rabbitmq/rabbit@localhost.log</span><br><span class="line">Jul 06 01:06:36 localhost.localdomain rabbitmq-server[2948]: /var/log/rabbitmq/rabbit@localhost_upgrade.log</span><br><span class="line">Jul 06 01:06:36 localhost.localdomain rabbitmq-server[2948]: Starting broker...</span><br><span class="line">Jul 06 01:06:36 localhost.localdomain rabbitmq-server[2948]: systemd unit for activation check: "rabbitmq-server.service"</span><br><span class="line">Jul 06 01:06:36 localhost.localdomain rabbitmq-server[2948]: Failed to start socat error:enoent</span><br><span class="line">Jul 06 01:06:36 localhost.localdomain rabbitmq-server[2948]: systemd READY notification failed, beware of timeouts</span><br><span class="line">Jul 06 01:06:36 localhost.localdomain rabbitmq-server[2948]: completed with 0 plugins.</span><br><span class="line">Hint: Some lines were ellipsized, use -l to show in full.</span><br></pre></td></tr></table></figure>
-<h5 id="4、开启RabbitMQ-web访问"><a href="#4、开启RabbitMQ-web访问" class="headerlink" title="4、开启RabbitMQ web访问"></a>4、开启RabbitMQ web访问</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">rabbitmq-plugins enable rabbitmq_management</span><br><span class="line">/sbin/service rabbitmq-server stop</span><br><span class="line">/sbin/service rabbitmq-server start</span><br></pre></td></tr></table></figure>
-<h5 id="5、开启端口"><a href="#5、开启端口" class="headerlink" title="5、开启端口"></a>5、开启端口</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost opt]# firewall-cmd --permanent --add-port=15672/tcp</span><br><span class="line">success</span><br><span class="line">[root@localhost opt]# firewall-cmd --permanent --add-port=5672/tcp </span><br><span class="line">success</span><br><span class="line">[root@localhost opt]# service network restart</span><br><span class="line">Restarting network (via systemctl):                        [  OK  ]</span><br><span class="line">[root@localhost opt]#</span><br></pre></td></tr></table></figure>
-<h5 id="5、设置开机启动"><a href="#5、设置开机启动" class="headerlink" title="5、设置开机启动"></a>5、设置开机启动</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chkconfig rabbitmq-server on</span><br></pre></td></tr></table></figure>
-<p>###安装完毕web访问</p>
-<p>浏览器输入</p>
-<p>192.168.x.x:15672</p>
-<p>默认账号密码</p>
-<p>guest</p>
-<p>guest</p>
-<p><a href="http://www.rabbitmq.com/install-rpm.html#install-rabbitmq" target="_blank" rel="noopener">参考官方文档</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/10/27/Linux下安装RabbitMQ消息队列/" data-id="cjswkt8t1000ob8shsyubk2co" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rabbitMQ/">rabbitMQ</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/消息队列/">消息队列</a></li></ul>
-
-    </footer>
+    </header>
   </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2018/10/30/Maven中配置详解/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          Maven中配置详解
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2018/10/12/使用Maven整合SSH/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">使用Maven整合SSH</div>
-    </a>
-  
-</nav>
-
-  
 </article>
+  
+  
+    </div></section>
+  
+
 
 </section>
         

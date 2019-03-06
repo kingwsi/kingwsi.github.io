@@ -5,20 +5,20 @@
   
 
   
-  <title>Linux下安装RabbitMQ消息队列 | wangshu</title>
+  <title>前后端分离开发-Vue中使用Mock模拟数据 | wangshu</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="基于Centos 7安装RabbitMQ消息队列服务器">
-<meta name="keywords" content="linux,rabbitMQ,消息队列">
+  <meta name="description" content="前后端分离开发，在Vue中使用mock拦截Ajax请求实现模拟数据返回">
+<meta name="keywords" content="-vue -mock">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Linux下安装RabbitMQ消息队列">
-<meta property="og:url" content="http://yoursite.com/2018/10/27/Linux下安装RabbitMQ消息队列/index.html">
+<meta property="og:title" content="前后端分离开发-Vue中使用Mock模拟数据">
+<meta property="og:url" content="http://yoursite.com/2019/03/06/前后端分离开发-Vue中使用Mock模拟数据/index.html">
 <meta property="og:site_name" content="wangshu">
-<meta property="og:description" content="基于Centos 7安装RabbitMQ消息队列服务器">
+<meta property="og:description" content="前后端分离开发，在Vue中使用mock拦截Ajax请求实现模拟数据返回">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-11-21T07:58:15.000Z">
+<meta property="og:updated_time" content="2019-03-06T02:21:24.057Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Linux下安装RabbitMQ消息队列">
-<meta name="twitter:description" content="基于Centos 7安装RabbitMQ消息队列服务器">
+<meta name="twitter:title" content="前后端分离开发-Vue中使用Mock模拟数据">
+<meta name="twitter:description" content="前后端分离开发，在Vue中使用mock拦截Ajax请求实现模拟数据返回">
   
     <link rel="alternate" href="/atom.xml" title="wangshu" type="application/atom+xml">
   
@@ -65,10 +65,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-Linux下安装RabbitMQ消息队列" class="article article-type-post" itemscope="" itemprop="blogPost">
+        <section id="main"><article id="post-前后端分离开发-Vue中使用Mock模拟数据" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2018/10/27/Linux下安装RabbitMQ消息队列/" class="article-date">
-  <time datetime="2018-10-27T03:07:23.000Z" itemprop="datePublished">2018-10-27</time>
+    <a href="/2019/03/06/前后端分离开发-Vue中使用Mock模拟数据/" class="article-date">
+  <time datetime="2019-03-06T02:09:07.000Z" itemprop="datePublished">2019-03-06</time>
 </a>
     
   </div>
@@ -79,7 +79,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Linux下安装RabbitMQ消息队列
+      前后端分离开发-Vue中使用Mock模拟数据
     </h1>
   
 
@@ -87,40 +87,20 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>基于Centos 7安装RabbitMQ消息队列服务器</p>
+        <p>前后端分离开发，在Vue中使用mock拦截Ajax请求实现模拟数据返回</p>
 <a id="more"></a>
-<h3 id="一、安装Erlang"><a href="#一、安装Erlang" class="headerlink" title="一、安装Erlang"></a>一、安装<a href="https://www.erlang-solutions.com/resources/download.html" target="_blank" rel="noopener">Erlang</a></h3><h5 id="1、下载esl-erlang-21-0-1-centos-7-amd64-rpm"><a href="#1、下载esl-erlang-21-0-1-centos-7-amd64-rpm" class="headerlink" title="1、下载esl-erlang_21.0-1~centos~7_amd64.rpm"></a>1、下载esl-erlang_21.0-1~centos~7_amd64.rpm</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://packages.erlang-solutions.com/erlang/esl-erlang/FLAVOUR_1_general/esl-erlang_21.0-1~centos~7_amd64.rpm</span><br></pre></td></tr></table></figure>
-<h5 id="2、安装"><a href="#2、安装" class="headerlink" title="2、安装"></a>2、安装</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpm -ivh esl-erlang_21.0-1~centos~7_amd64.rpm --force --nodeps</span><br></pre></td></tr></table></figure>
-<h5 id="3、查看安装"><a href="#3、查看安装" class="headerlink" title="3、查看安装"></a>3、查看安装</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost opt]# yum list|grep erlang</span><br><span class="line">esl-erlang.x86_64                           21.0-1                     installed</span><br></pre></td></tr></table></figure>
-<h3 id="二、安装RabbitMQ"><a href="#二、安装RabbitMQ" class="headerlink" title="二、安装RabbitMQ"></a>二、安装RabbitMQ</h3><h5 id="1、下载rabbitmq-server-3-7-7-1"><a href="#1、下载rabbitmq-server-3-7-7-1" class="headerlink" title="1、下载rabbitmq-server-3.7.7-1"></a>1、下载rabbitmq-server-3.7.7-1</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://dl.bintray.com/rabbitmq/all/rabbitmq-server/3.7.7/rabbitmq-server-3.7.7-1.el7.noarch.rpm</span><br></pre></td></tr></table></figure>
-<h5 id="2、安装-1"><a href="#2、安装-1" class="headerlink" title="2、安装"></a>2、安装</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpm -ivh rabbitmq-server-3.7.7-1.el7.noarch.rpm --force --nodeps</span><br></pre></td></tr></table></figure>
-<p>#####3、查看安装</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost opt]# yum list|grep rabbit</span><br><span class="line">rabbitmq-server.noarch                      3.7.7-1.el7                installed</span><br><span class="line">librabbitmq.i686                            0.8.0-2.el7                base</span><br><span class="line">librabbitmq.x86_64                          0.8.0-2.el7                base</span><br><span class="line">librabbitmq-devel.i686                      0.8.0-2.el7                base</span><br><span class="line">librabbitmq-devel.x86_64                    0.8.0-2.el7                base</span><br><span class="line">librabbitmq-examples.x86_64                 0.8.0-2.el7                base                            21.0-1                     installed</span><br></pre></td></tr></table></figure>
-<p>###3、配置远程用户访问</p>
-<p>#####1、新建配置文件</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/rabbitmq/rabbitmq.conf</span><br><span class="line"><span class="meta">#</span>默认用户名</span><br><span class="line">default_user = guest</span><br><span class="line"><span class="meta">#</span>默认密码</span><br><span class="line">default_pass = guest</span><br><span class="line"><span class="meta">#</span>远程用户访问</span><br><span class="line">loopback_users = none</span><br></pre></td></tr></table></figure>
-<p>#####2、启动rabbitmq服务</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/sbin/service rabbitmq-server start</span><br></pre></td></tr></table></figure>
-<p>#####3、查看运行</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost opt]# /sbin/service rabbitmq-server status</span><br><span class="line">Redirecting to /bin/systemctl status rabbitmq-server.service</span><br><span class="line">● rabbitmq-server.service - RabbitMQ broker</span><br><span class="line">   Loaded: loaded (/usr/lib/systemd/system/rabbitmq-server.service; enabled; vendor preset: disabled)</span><br><span class="line">   Active: activating (start) since Fri 2018-07-06 01:06:31 EDT; 1min 15s ago</span><br><span class="line"> Main PID: 2948 (beam.smp)</span><br><span class="line">   CGroup: /system.slice/rabbitmq-server.service</span><br><span class="line">           ├─2948 /usr/lib/erlang/erts-10.0/bin/beam.smp -W w -A 64 -MBas ageffcbf -MHas ageffcbf -MBlmbcs 512 -MHlmbcs...</span><br><span class="line">           ├─3121 /usr/lib/erlang/erts-10.0/bin/epmd -daemon</span><br><span class="line">           ├─3259 erl_child_setup 1024</span><br><span class="line">           ├─3296 inet_gethost 4</span><br><span class="line">           └─3297 inet_gethost 4</span><br><span class="line"></span><br><span class="line">Jul 06 01:06:36 localhost.localdomain rabbitmq-server[2948]: ##  ##      RabbitMQ 3.7.7. Copyright (C) 2007-2018 Pi...Inc.</span><br><span class="line">Jul 06 01:06:36 localhost.localdomain rabbitmq-server[2948]: ##########  Licensed under the MPL.  See http://www.ra...com/</span><br><span class="line">Jul 06 01:06:36 localhost.localdomain rabbitmq-server[2948]: ######  ##</span><br><span class="line">Jul 06 01:06:36 localhost.localdomain rabbitmq-server[2948]: ##########  Logs: /var/log/rabbitmq/rabbit@localhost.log</span><br><span class="line">Jul 06 01:06:36 localhost.localdomain rabbitmq-server[2948]: /var/log/rabbitmq/rabbit@localhost_upgrade.log</span><br><span class="line">Jul 06 01:06:36 localhost.localdomain rabbitmq-server[2948]: Starting broker...</span><br><span class="line">Jul 06 01:06:36 localhost.localdomain rabbitmq-server[2948]: systemd unit for activation check: "rabbitmq-server.service"</span><br><span class="line">Jul 06 01:06:36 localhost.localdomain rabbitmq-server[2948]: Failed to start socat error:enoent</span><br><span class="line">Jul 06 01:06:36 localhost.localdomain rabbitmq-server[2948]: systemd READY notification failed, beware of timeouts</span><br><span class="line">Jul 06 01:06:36 localhost.localdomain rabbitmq-server[2948]: completed with 0 plugins.</span><br><span class="line">Hint: Some lines were ellipsized, use -l to show in full.</span><br></pre></td></tr></table></figure>
-<h5 id="4、开启RabbitMQ-web访问"><a href="#4、开启RabbitMQ-web访问" class="headerlink" title="4、开启RabbitMQ web访问"></a>4、开启RabbitMQ web访问</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">rabbitmq-plugins enable rabbitmq_management</span><br><span class="line">/sbin/service rabbitmq-server stop</span><br><span class="line">/sbin/service rabbitmq-server start</span><br></pre></td></tr></table></figure>
-<h5 id="5、开启端口"><a href="#5、开启端口" class="headerlink" title="5、开启端口"></a>5、开启端口</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost opt]# firewall-cmd --permanent --add-port=15672/tcp</span><br><span class="line">success</span><br><span class="line">[root@localhost opt]# firewall-cmd --permanent --add-port=5672/tcp </span><br><span class="line">success</span><br><span class="line">[root@localhost opt]# service network restart</span><br><span class="line">Restarting network (via systemctl):                        [  OK  ]</span><br><span class="line">[root@localhost opt]#</span><br></pre></td></tr></table></figure>
-<h5 id="5、设置开机启动"><a href="#5、设置开机启动" class="headerlink" title="5、设置开机启动"></a>5、设置开机启动</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chkconfig rabbitmq-server on</span><br></pre></td></tr></table></figure>
-<p>###安装完毕web访问</p>
-<p>浏览器输入</p>
-<p>192.168.x.x:15672</p>
-<p>默认账号密码</p>
-<p>guest</p>
-<p>guest</p>
-<p><a href="http://www.rabbitmq.com/install-rpm.html#install-rabbitmq" target="_blank" rel="noopener">参考官方文档</a></p>
+<h3 id="介绍及使用"><a href="#介绍及使用" class="headerlink" title="介绍及使用"></a>介绍及使用</h3><h5 id="官方地址-GitHub"><a href="#官方地址-GitHub" class="headerlink" title="官方地址 GitHub"></a>官方地址 <a href="https://github.com/nuysoft/Mock/wiki/Getting-Started" target="_blank" rel="noopener">GitHub</a></h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 安装</span><br><span class="line">npm install mockjs</span><br></pre></td></tr></table></figure>
+<h5 id="如何使用？"><a href="#如何使用？" class="headerlink" title="如何使用？"></a>如何使用？</h5><h6 id="1、新建mock-js创建模拟数据"><a href="#1、新建mock-js创建模拟数据" class="headerlink" title="1、新建mock.js创建模拟数据"></a>1、新建mock.js创建模拟数据</h6><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 引入mockjs</span></span><br><span class="line"><span class="keyword">const</span> Mock = <span class="built_in">require</span>(<span class="string">"mockjs"</span>);</span><br><span class="line"><span class="comment">// const _PATH_CONTEXT = "/service-admin";</span></span><br><span class="line"><span class="keyword">const</span> Random = Mock.Random;</span><br><span class="line"><span class="keyword">const</span> _PATH_RESOURCE = <span class="string">"http://localhost:8081"</span>;</span><br><span class="line"><span class="comment">// mock一组数据</span></span><br><span class="line"><span class="comment">// Mock.mock( url, post/get , 返回的数据)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// listCategory</span></span><br><span class="line">Mock.mock(_PATH_RESOURCE + <span class="string">"/api/v1/categories"</span>, <span class="string">"get"</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">let</span> categories = [];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">let</span> newArticleObject = &#123;</span><br><span class="line">            id: Random.guid(),</span><br><span class="line">            name: Random.cword(<span class="number">4</span>, <span class="number">6</span>),</span><br><span class="line">            sort: Random.integer(<span class="number">1</span>, <span class="number">99</span>),</span><br><span class="line">            createdBy: Random.word(<span class="number">6</span>),</span><br><span class="line">            createdDate: Random.datetime()</span><br><span class="line">        &#125;;</span><br><span class="line">        categories.push(newArticleObject);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> categories;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// listTag</span></span><br><span class="line">Mock.mock(_PATH_RESOURCE + <span class="string">"/api/v1/tags"</span>, <span class="string">"get"</span>, <span class="function"><span class="keyword">function</span>(<span class="params">data</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">let</span> tags = [];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">let</span> newArticleObject = &#123;</span><br><span class="line">            name: Random.cword(<span class="number">4</span>, <span class="number">6</span>),</span><br><span class="line">            icon: Random.dataImage(<span class="string">"50x50"</span>, <span class="string">"tag"</span>),</span><br><span class="line">            sort: Random.integer(<span class="number">1</span>, <span class="number">99</span>),</span><br><span class="line">            category: Random.integer(<span class="number">1</span>, <span class="number">10</span>)</span><br><span class="line">        &#125;;</span><br><span class="line">        tags.push(newArticleObject);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> tags;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>其中用到Mock.Random函数，里面封装了很多用于生成模拟数据的方法，可以便捷快速的生成大量测试数据用于响应请求，详细使用请查阅<a href="https://github.com/nuysoft/Mock/wiki" target="_blank" rel="noopener">文档</a></p>
+<h6 id="2、在项目main-js引入mock-js"><a href="#2、在项目main-js引入mock-js" class="headerlink" title="2、在项目main.js引入mock.js"></a>2、在项目main.js引入mock.js</h6><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">require</span>(<span class="string">"@/assets/mock/mock"</span>); <span class="comment">// 注意mock.js路径</span></span><br></pre></td></tr></table></figure>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/10/27/Linux下安装RabbitMQ消息队列/" data-id="cjswkt8t1000ob8shsyubk2co" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/06/前后端分离开发-Vue中使用Mock模拟数据/" data-id="cjswkt8uz0029b8sht4mq49vk" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rabbitMQ/">rabbitMQ</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/消息队列/">消息队列</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue-mock/">-vue -mock</a></li></ul>
 
     </footer>
   </div>
@@ -128,19 +108,10 @@
     
 <nav id="article-nav">
   
-    <a href="/2018/10/30/Maven中配置详解/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          Maven中配置详解
-        
-      </div>
-    </a>
   
-  
-    <a href="/2018/10/12/使用Maven整合SSH/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2019/02/19/java日期格式化大小写问题/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">使用Maven整合SSH</div>
+      <div class="article-nav-title">java日期格式化大小写问题</div>
     </a>
   
 </nav>
